@@ -1,1 +1,1 @@
-# SD-Exemplos
+# Exemplos usados em sala de aula da disciplina Sistemas distribuídos (Informática - UEM - 2024)
