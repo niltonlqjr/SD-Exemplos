@@ -27,10 +27,14 @@ int main(int argc, char *argv[]){
     sockfd = socket(AF_INET,  SOCK_STREAM, 0);
 
     connect(sockfd, (struct sockaddr *)&addr, sizeof(struct sockaddr));
+    //conecta ao servidor especificado na struct addr
     len = strlen(argv[1]);
     send(sockfd, argv[1], len, 0);
+    //envia o argumento para o servidor
     resp = (char *) malloc(len * sizeof(char));
+    //aloca espaco em memoria para receber a resposta
     recv(sockfd, resp, len, 0);
+    //recebe a resposta do servidor
     printf("Recebido do servidor: %s\n",resp);
-
+    free(resp);
 }
