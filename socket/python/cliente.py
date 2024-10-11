@@ -1,7 +1,7 @@
 import socket
 import sys
 
-host='127.0.0.1' #localhost
+host='10.30.11.43' #localhost
 port=5050
 
 if len(sys.argv) <= 1:
