@@ -11,16 +11,17 @@ public class AppServer{
     public static void main(String argv[]){
         Integer porta;
         String hostname;
-        if(argv.length < 2){
-            porta = 1099;
-        }else{
-            porta = Integer.valueOf(argv[0]);
-        }
         if(argv.length < 1){
             hostname = "127.0.0.1";
         }else{
-            hostname=argv[1];
+            hostname=argv[0];
         }
+        if(argv.length < 2){
+            porta = 1099;
+        }else{
+            porta = Integer.valueOf(argv[1]);
+        }
+
         String objName = "Operacoes:"+porta.toString();
         OperacoesRemote op = new ServerOperacoes();
 	    
