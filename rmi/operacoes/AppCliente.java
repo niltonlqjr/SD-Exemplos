@@ -5,11 +5,15 @@ import java.rmi.registry.*;
 
 public class AppCliente {
     public static void main(String argv[]){
-        String host = argv[0];
+        String host="";
         Integer porta;
         /* Definição do host e porta */
         if(argv.length < 1){
-            host = "127.0.0.1";
+            System.out.println("Modo de usar:");
+            System.out.println("java AppCliente <hostname> [porta]");
+            System.out.println("<hostname>: é nome do servidor na rede.");
+            System.out.println("[porta]: opcional - Porta para acessar o rmiregistry do servidor (padrão 1099)");
+            System.exit(1);
         }else{
             host=argv[0];
         }
@@ -24,7 +28,7 @@ public class AppCliente {
         OperacoesRemote remOp = null;// = new ServerOperacoes();
 
         try {
-            Registry registry = LocateRegistry.getRegistry(host);
+            Registry registry = LocateRegistry.getRegistry(host,porta);
             remOp = (OperacoesRemote) registry.lookup(objName);
             System.out.println("objeto: '"+objName+"' localizado no servidor: "+host);
         } catch (Exception e) {
