@@ -10,10 +10,14 @@ import java.rmi.server.UnicastRemoteObject;
 public class AppServer{
     public static void main(String argv[]){
         Integer porta;
-        String hostname;
+        String hostname="";
         /* Definição do hostname e porta */
         if(argv.length < 1){
-            hostname = "127.0.0.1";
+            System.out.println("Modo de usar:");
+            System.out.println("java AppServer <hostname> [porta]");
+            System.out.println("<hostname>: é o nome usado na rede para encontrar este servidor.");
+            System.out.println("[porta]: opcional - Porta utilizada pelo rmiregistry (será usada no nome do objeto)");
+            System.exit(1);
         }else{
             hostname=argv[0];
         }
