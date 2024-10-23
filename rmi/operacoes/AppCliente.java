@@ -7,13 +7,21 @@ public class AppCliente {
     public static void main(String argv[]){
         String host = argv[0];
         Integer porta;
-        if(argv.length > 2){
-            porta = Integer.parseInt(argv[1]);
+        /* Definição do host e porta */
+        if(argv.length < 1){
+            host = "127.0.0.1";
         }else{
-            porta = 1099;
+            host=argv[0];
         }
+        if(argv.length < 2){
+            porta = 1099;
+        }else{
+            porta = Integer.parseInt(argv[1]);
+            
+        }
+        /* */
         String objName = "Operacoes:"+porta.toString();
-        OperacoesRemote remOp = new ServerOperacoes();
+        OperacoesRemote remOp = null;// = new ServerOperacoes();
 
         try {
             Registry registry = LocateRegistry.getRegistry(host);

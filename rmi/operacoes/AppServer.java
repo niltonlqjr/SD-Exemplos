@@ -11,6 +11,7 @@ public class AppServer{
     public static void main(String argv[]){
         Integer porta;
         String hostname;
+        /* Definição do hostname e porta */
         if(argv.length < 1){
             hostname = "127.0.0.1";
         }else{
@@ -22,17 +23,23 @@ public class AppServer{
             porta = Integer.valueOf(argv[1]);
         }
 
+
+        /* Definição do nome do objeto */
         String objName = "Operacoes:"+porta.toString();
         OperacoesRemote op = new ServerOperacoes();
 	    
 
         /*
+         * Alteração da propriedad hostname na JVM que roda este processo
          * A propriedade java.rmi.server.hostname da máquina virtual java
          * representa o nome que deve ser associado aos stubs dos clientes
          * para que eles possam se vicular ao servidor.
+         * É comum utilizar o ip da máquina na rede, ou algum outro nome
+         * para a máquina que seja visivel pelos clientes.
          */
         System.setProperty("java.rmi.server.hostname", hostname); 
 
+        /* Exportando o objeto remoto */
         try {
             op = (OperacoesRemote) UnicastRemoteObject.exportObject(op,0);
         } catch (RemoteException e) {
@@ -41,6 +48,7 @@ public class AppServer{
             System.exit(1);
         }
 
+        /* Registrando o objeto remoto no rmiregisty */
         try {
             Registry regOP = LocateRegistry.getRegistry();
             regOP.bind(objName, op);
