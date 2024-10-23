@@ -17,9 +17,9 @@ public class AppServer{
             porta = Integer.valueOf(argv[0]);
         }
         if(argv.length < 2){
-            hostname=argv[1];
-        }else{
             hostname = "127.0.0.1";
+        }else{
+            hostname=argv[1];
         }
         String objName = "Operacoes:"+porta.toString();
         OperacoesRemote op = new ServerOperacoes();
