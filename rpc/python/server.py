@@ -18,11 +18,11 @@ if __name__ == '__main__':
     if len(sys.argv) < 3:
         porta=8080
     else:
-        porta=int(argv[2])
+        porta=int(sys.argv[2])
     if len(sys.argv) < 2:
         ip = 'localhost'
     else:
-        ip=str(argv[1])
+        ip=str(sys.argv[1])
     
         
     server = rpc.SimpleXMLRPCServer((ip,porta))
