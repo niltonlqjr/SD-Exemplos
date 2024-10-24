@@ -1,5 +1,5 @@
 import xmlrpc.server as rpc
-import sys
+import sys, socket
 
 def sucessor(n):
     return n+1
@@ -21,6 +21,7 @@ if __name__ == '__main__':
         porta=int(sys.argv[2])
     if len(sys.argv) < 2:
         ip = 'localhost'
+        print("nome de host definido como 'localhost', somente clientes locais serão atendidos.")
     else:
         ip=str(sys.argv[1])
     
