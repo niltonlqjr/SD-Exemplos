@@ -1,4 +1,3 @@
-import ClassesServer.ServerOperacoes;
 import InterfacesRemotas.OperacoesRemote;
 import java.util.Scanner;
 import java.rmi.registry.*;
@@ -23,10 +22,10 @@ public class AppCliente {
             porta = Integer.parseInt(argv[1]);
             
         }
-        /* */
+        /* definicao do nome do objeto remoto */
         String objName = "Operacoes:"+porta.toString();
-        OperacoesRemote remOp = null;// = new ServerOperacoes();
-
+        OperacoesRemote remOp = null;
+        /* conexao ao objeto remoto */
         try {
             Registry registry = LocateRegistry.getRegistry(host,porta);
             remOp = (OperacoesRemote) registry.lookup(objName);
@@ -35,12 +34,13 @@ public class AppCliente {
             System.err.println(e);
             System.exit(1);
         }
+        /* leitura da entrada */
         Scanner stdin = new Scanner(System.in);
         System.out.println("digite um numero:");
         String s = stdin.nextLine();
         Integer num = Integer.parseInt(s);
         stdin.close();
-
+        /* chamada dos metodos remotos */
         Integer sucessor = 0;
         Integer antecessor = 0;
         Integer quadrado = 0; 
@@ -54,15 +54,11 @@ public class AppCliente {
             System.out.println("impossivel crealizar chamada remota");
             System.err.println(e);
             System.exit(1);
-	}
+        }
 
-        
         System.out.println("Sucessor: "+sucessor.toString());
         System.out.println("Antecessor: "+antecessor.toString());
         System.out.println("Quadrado: "+quadrado.toString());
         System.out.println("Raiz: "+raiz.toString());
-
-
-
     }
 }
