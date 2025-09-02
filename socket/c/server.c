@@ -34,6 +34,7 @@ int main(){
         peer_ip = inet_ntoa(peer_addr.sin_addr);
         printf("conectado: %s %d\n",peer_ip, peer_addr.sin_port);
         income_size = recv(peer_sockfd, income_data, MAX_MESSAGE_SIZE, 0);
+        income_data[income_size] = '\0';
         printf("mensagem recebida: %s\n",income_data);
         for(int i=0;i<income_size;i++){
             income_data[i] = toupper(income_data[i]);
