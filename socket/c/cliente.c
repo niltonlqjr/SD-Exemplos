@@ -6,12 +6,16 @@
 #include <arpa/inet.h>
 
 int main(int argc, char *argv[]){
-    if(argc != 2){
+    if(argc < 2){
         printf("Modo de usar\n");
-        printf("%s <mensagem>",argv[0]);
+        printf("%s <mensagem> [servidor]\n",argv[0]);
         return 1;
     }
-    char host[]="127.0.0.1";
+    char host[64]="127.0.0.1";
+    if(argc >=3){
+        strncpy(host,argv[2],63);
+        host[63]='\0';
+    }
     char *resp;
     unsigned int port=5050;
     struct sockaddr_in addr;
@@ -25,9 +29,15 @@ int main(int argc, char *argv[]){
     //converte o endereco do server para o formato adequado
     
     sockfd = socket(AF_INET,  SOCK_STREAM, 0);
-
-    connect(sockfd, (struct sockaddr *)&addr, sizeof(struct sockaddr));
+    
+    
+    int connected = connect(sockfd, (struct sockaddr *)&addr, sizeof(struct sockaddr));
     //conecta ao servidor especificado na struct addr
+    if(connected == -1){
+        printf("Erro ao conectar com o servidor: %s\n", host);
+        return 1;
+    }
+    
     len = strlen(argv[1]);
     send(sockfd, argv[1], len, 0);
     //envia o argumento para o servidor
