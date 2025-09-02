@@ -6,28 +6,39 @@ class ClienteTCP {
     public static void main(String argv[]) throws Exception 
     { 
         String frase; 
-        String fraseModificada; 
+        String fraseModificada;
+        String server_address = "localhost";
+        if(argv.length >= 1){
+          System.err.println(argv[0]);
+          server_address = argv[0];
+        }
+        
         BufferedReader doUsuario = 
           new BufferedReader(new InputStreamReader(System.in)); 
 
-        Socket socketCliente = new Socket("localhost", 6789); 
+        try {  
+          Socket socketCliente = new Socket(server_address, 6789); 
+          
+          DataOutputStream paraServidor = 
+            new DataOutputStream(socketCliente.getOutputStream()); 
 
-        DataOutputStream paraServidor = 
-          new DataOutputStream(socketCliente.getOutputStream()); 
+          BufferedReader doServidor = 
+            new BufferedReader(new
+            InputStreamReader(socketCliente.getInputStream())); 
+          System.out.println("Digite a frase a ser enviada para o servidor:");
+          frase = doUsuario.readLine(); 
 
-        BufferedReader doServidor = 
-          new BufferedReader(new
-          InputStreamReader(socketCliente.getInputStream())); 
+          paraServidor.writeBytes(frase + '\n'); 
 
-        frase = doUsuario.readLine(); 
+          fraseModificada = doServidor.readLine(); 
 
-        paraServidor.writeBytes(frase + '\n'); 
+          System.out.println("Do Servidor: " + fraseModificada); 
 
-        fraseModificada = doServidor.readLine(); 
-
-        System.out.println("Do Servidor: " + fraseModificada); 
-
-        socketCliente.close(); 
+          socketCliente.close();
+        } catch (Exception e) {
+          System.err.println("Erro de conexao com o servidor: "+server_address+".");
+          System.exit(1);      
+        } 
                    
     } 
 } 
